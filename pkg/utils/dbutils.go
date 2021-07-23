@@ -41,6 +41,20 @@ func decodeDigit(c byte, onlyOctal bool) (byte, bool) {
 func decodeOctDigit(c byte) (byte, bool) { return decodeDigit(c, true) }
 func decodeHexDigit(c byte) (byte, bool) { return decodeDigit(c, false) }
 
+//QuoteIdentifier quotes identifier
+func QuoteIdentifier(str string) string {
+	return `"` + str + `"`
+}
+
+func QuoteIdentifierArray(str []string) []string {
+	result := make([]string, len(str))
+	for i, s := range str {
+		result[i] = QuoteIdentifier(s)
+	}
+
+	return result
+}
+
 //QuoteLiteral quotes string literal
 func QuoteLiteral(str string) string {
 	needsEscapeChar := false

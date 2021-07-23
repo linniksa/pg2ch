@@ -12,6 +12,7 @@ import (
 	"gopkg.in/yaml.v2"
 
 	"github.com/mkabilov/pg2ch/pkg/message"
+	"github.com/mkabilov/pg2ch/pkg/utils"
 )
 
 const (
@@ -178,6 +179,10 @@ func (tn *PgTableName) UnmarshalYAML(unmarshal func(interface{}) error) error {
 
 func (tn PgTableName) MarshalYAML() (interface{}, error) {
 	return tn.String(), nil
+}
+
+func (tn *PgTableName) SQL() string {
+	return utils.QuoteIdentifier(tn.SchemaName) + "." + utils.QuoteIdentifier(tn.TableName)
 }
 
 func (tn *PgTableName) String() string {
